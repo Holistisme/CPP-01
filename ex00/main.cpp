@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                        File Name: /CPP-01/ex00/main.cpp                        *
 *                    Creation Date: January 10, 2025 12:36 AM                    *
-*                    Last Updated: January 11, 2025 10:51 AM                     *
+*                    Last Updated: January 11, 2025 05:07 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -62,12 +62,6 @@ int	main(void) {
 		deleteZombiesMemory();
 		exit(EXIT_FAILURE);
 	}
-}
-
-void*	operator new(size_t size) {
-	if (size == sizeof(Zombie))
-		throw std::bad_alloc();
-	return (malloc(size));
 }
 
 /**

@@ -1,5 +1,5 @@
 /*********************************************************************************
-*                              Author: Author Name                               *
+*                              Author: Alexy Heitz                               *
 *                File Name: /CPP-01/ex00/utilities/trimSpaces.cpp                *
 *                    Creation Date: January 10, 2025 04:01 PM                    *
 *                    Last Updated: January 11, 2025 10:47 AM                     *
@@ -42,13 +42,11 @@ void	trimSpaces(std::string &string, const bool &isZombieName) {
 				string = string.substr(start, string.length() - start);
 				end -= start;
 			}
-			erasePreviousLines(1);
 		}
 		if (end < string.length()) {
 			printConfirmationMessage("back");
 			if (confirmAction())
 				string = string.substr(0, end);
-			erasePreviousLines(1);
 		}
 	}
 	else

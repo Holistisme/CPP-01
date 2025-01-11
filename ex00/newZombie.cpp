@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                     File Name: /CPP-01/ex00/newZombie.cpp                      *
 *                    Creation Date: January 10, 2025 12:37 AM                    *
-*                    Last Updated: January 11, 2025 11:52 AM                     *
+*                    Last Updated: January 11, 2025 05:11 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -13,13 +13,6 @@
 
 /********************************************************************************/
 
-// void* operator new(std::size_t size) {
-// 	(void)size;
-// 	std::cout << "HERE" << std::endl;
-//     throw std::bad_alloc(); // Simule toujours un échec d'allocation
-// 	// std::cout << "HERE" << std::endl;
-// }
-
 /**
  * @brief Create a new zombie allocated dynamically.
  * 
@@ -27,21 +20,24 @@
  * @return Zombie* A pointer to the newly created zombie.
  */
 Zombie*	Zombie::newZombie(std::string name) {
+	erasePreviousLines(1);
+
 	if (zombiesCount >= MAX_ZOMBIES) {
 		std::cerr << BG_RED << "ERROR:" << RESET
-			<< RED << " it is not possible to create more than " << RESET
+			<< RED << " it should not be possible to create more than " << RESET
 			<< YELLOW << MAX_ZOMBIES << RESET
-			<< " zombies!" << std::endl;
-		return NULL;
+			<< RED << " zombies!" << RESET << std::endl;
+		deleteZombiesMemory();
+		exit(EXIT_FAILURE);
 	}
 
 	Zombie *newAllocatedZombie = savedList[zombiesCount] = new Zombie;
+	++zombiesCount;
 
-	newAllocatedZombie = savedList[zombiesCount++];
-	erasePreviousLines(1);
 	newAllocatedZombie->name = name;
 	newAllocatedZombie->setZombieColor();
 	newAllocatedZombie->announce();
 	newAllocatedZombie->canDie = true;
-	return savedList[zombiesCount];
+
+	return newAllocatedZombie;
 }

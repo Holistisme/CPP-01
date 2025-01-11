@@ -1,29 +1,60 @@
+/*********************************************************************************
+*                              Author: Alexy Heitz                               *
+*                       File Name: /CPP-01/ex00/Zombie.cpp                       *
+*                    Creation Date: January 10, 2025 12:37 AM                    *
+*                    Last Updated: January 11, 2025 05:41 PM                     *
+*                              Source Language: cpp                              *
+*                                                                                *
+*                            --- Code Description ---                            *
+*                        The source of all deadly action                         *
+*********************************************************************************/
+
 #include "./Zombie.hpp"
 
+/********************************************************************************/
+
+/**
+ * @brief Destroy the Zombie object.
+ * 
+ */
 Zombie::~Zombie() {
 	if (canDie) {
-		std::string	gasps[] = {"Huhhhh...", "Urrrrgh...", "Whaaaat?!", "Braaaaahh..."};
+		static const std::string	gasps[] = {"Huhhhh...", "Urrrrgh...", "Whaaaat?!", "Braaaaahh..."};
 		std::cout << getColoredName() << RESET << ": " << gasps[rand() % 4] << std::endl;
 		sleep(INTERACTION / 2), erasePreviousLines(1);
 	}
 }
 
+/********************************************************************************/
+
+/**
+ * @brief Assesses the name and color for display.
+ * 
+ * @return std::string The sum of the colorful name.
+ */
+std::string	Zombie::getColoredName(void) {
+	return ((!color.empty() ? color : BRIGHT_GREEN)
+		+ (!name.empty() ? name : "An unknown zombie"));
+}
+
+/********************************************************************************/
+
+/**
+ * @brief The zombie interactively announces itself.
+ * 
+ */
 void	Zombie::announce(void) {
 	std::cout << getColoredName() << RESET << ": BraiiiiiiinnnzzzZ..." << std::endl;
 	sleep(INTERACTION), erasePreviousLines(1);
 }
 
-std::string	Zombie::getColoredName(void) {
-	std::string	coloredName = "";
-
-	coloredName = !color.empty() ? color : BRIGHT_GREEN;
-	coloredName += !name.empty() ? name : "An unknown zombie";
-	return coloredName;
-}
-
+/**
+ * @brief Asks the user if they want to assign a color to the zombie.
+ * 
+ */
 void	Zombie::setZombieColor() {
-	std::string	availableColors[]	= { "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white" };
-	std::string	colorCodes[]		= { BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE };
+	static const std::string	availableColors[]	= { "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white" };
+	static const std::string	colorCodes[]		= { BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE };
 
 	std::cout << "🖌 - You can give a color to " << getColoredName() << RESET
 		<< "! Specify one if you want, or leave the field empty!" << std::endl;
@@ -55,7 +86,13 @@ void	Zombie::setZombieColor() {
 	}
 }
 
+/**
+ * @brief Deletes all registered zombie allocations.
+ * 
+ */
 void	deleteZombiesMemory() {
-	for (size_t index = 0 ; index < zombiesCount ; index++)
+	for (size_t index = 0 ; index < zombiesCount ; index++) {
 		delete savedList[index];
+		savedList[index] = NULL;
+	}
 }

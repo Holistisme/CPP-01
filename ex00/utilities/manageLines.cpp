@@ -48,10 +48,10 @@ std::string	getInputLine(void) {
  * @param count The number of lines to erase.
  */
 void	erasePreviousLines(const size_t &count) {
-	std::ostringstream	oss;
+	std::string	eraseInstructions = "";
 
 	for (size_t index = 0 ; index < count ; index++)
-		oss << ERASE_PREVIOUS_LINE;
+		eraseInstructions += ERASE_PREVIOUS_LINE;
 
-	std::cout << oss.str() << std::flush << MOVE_CURSOR_UP << std::endl;
+	std::cout << eraseInstructions << std::flush << MOVE_CURSOR_UP << std::endl;
 }
