@@ -1,8 +1,19 @@
-/********************************************************************************/
+/*********************************************************************************
+*                              Author: Alexy Heitz                               *
+*                        File Name: /CPP-01/ex02/main.cpp                        *
+*                    Creation Date: January 14, 2025 01:02 PM                    *
+*                    Last Updated: January 14, 2025 03:35 PM                     *
+*                              Source Language: cpp                              *
+*                                                                                *
+*                            --- Code Description ---                            *
+*                  Displays address information for a variable.                  *
+*********************************************************************************/
 
 #include <cstdlib>
 #include <csignal>
 #include <iostream>
+
+/********************************************************************************/
 
 #define RESET		"\033[0m"
 
