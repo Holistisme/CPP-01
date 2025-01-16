@@ -25,7 +25,7 @@ void	handleSigInt(int signal) {
 	if (signal == SIGINT) {
 		std::cout << ERASE_LINE << BG_RED << "CTRL-C:" << RESET 
 			<< RED << " shutdown program!" << RESET << std::endl;
-		deleteZombiesMemory();
+		deleteHordes(NULL);
 		exit(EXIT_SUCCESS);
 	}
 	std::signal(SIGINT, handleSigInt);

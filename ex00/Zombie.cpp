@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-01/ex00/Zombie.cpp                       *
 *                    Creation Date: January 10, 2025 12:37 AM                    *
-*                    Last Updated: January 11, 2025 05:41 PM                     *
+*                    Last Updated: January 15, 2025 05:31 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -14,15 +14,28 @@
 /********************************************************************************/
 
 /**
+ * @brief Construct a new Zombie object.
+ * 
+ * @param firstName the name to give to the zombie.
+ * @param allocated if the zombie is allocated, allows you to track its memory.
+ */
+Zombie::Zombie(const std::string &firstName, const bool &allocated) {
+	if (allocated)
+		savedList[zombiesCount++] = this;
+	name = firstName;
+	setZombieColor();
+	announce();
+}
+
+/**
  * @brief Destroy the Zombie object.
  * 
  */
-Zombie::~Zombie() {
-	if (canDie) {
-		static const std::string	gasps[] = {"Huhhhh...", "Urrrrgh...", "Whaaaat?!", "Braaaaahh..."};
-		std::cout << getColoredName() << RESET << ": " << gasps[rand() % 4] << std::endl;
-		sleep(INTERACTION / 2), erasePreviousLines(1);
-	}
+Zombie::~Zombie(void) {
+	static const std::string	gasps[] = {"Huhhhh...", "Urrrrgh...", "Whaaaat?!", "Braaaaahh..."};
+
+	std::cout << getColoredName() << RESET << ": " << gasps[rand() % 4] << std::endl;
+	sleep(INTERACTION / 2), erasePreviousLines(1);
 }
 
 /********************************************************************************/
@@ -79,7 +92,7 @@ void	Zombie::setZombieColor() {
 		else {
 			index	randomI = rand() % 8;
 
-			std::cerr << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input" << RESET
+			std::cout << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input" << RESET
 				<< "! Try something like: " << colorCodes[randomI] << availableColors[randomI] << RESET << '!' << std::endl;
 			sleep(COOLDOWN), erasePreviousLines(1);
 		}

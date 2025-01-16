@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *              File Name: /CPP-01/ex01/utilities/confirmAction.cpp               *
 *                    Creation Date: January 11, 2025 05:39 PM                    *
-*                    Last Updated: January 11, 2025 05:44 PM                     *
+*                    Last Updated: January 15, 2025 05:34 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -26,12 +26,12 @@ static inline bool	matchesAny(const std::string &input, const std::string option
 bool	confirmAction(void) {
 	const std::string	acceptOptions[] = { "y", "yes", "agree",
 		"sure", "why note", "absolutely", "of course", "go for it",
-		"do it", "trim away!" , "ok", "yeah", "yup", "aye", "confirmed",
+		"do it", "Go away!" , "ok", "yeah", "yup", "aye", "confirmed",
 		"let's go", "clean it up!", "+1", "true", "enable", "sure thing",
 		"heck yeah!", "go ahead", "yessir", "fine", "alright", "let's do this",
-		"To infinity and beyond!", "Make it so!", "Engage!", "Trim it like it's hot!",
-		"Let’s clean this mess!", "Chop chop!", "Houston, we are go for trim!",
-		"Yes, my liege!", "Activate trim protocol!", "Ready to roll!"
+		"To infinity and beyond!", "Make it so!", "Engage!", "Do it like it's hot!",
+		"Let’s clean this mess!", "Chop chop!", "Houston, we are go for this!",
+		"Yes, my liege!", "Activate the protocol!", "Ready to roll!"
 	};
 	const std::string	declineOptions[] = { "n", "no", "disagree",
 		"nah", "nope", "not really", "never", "don't", "stop", "leave it",
@@ -45,17 +45,14 @@ bool	confirmAction(void) {
 		std::string	input = getInputLine();
 		trimSpaces(input, false);
 
-		erasePreviousLines(1);
 		if (matchesAny(input, acceptOptions, sizeof(acceptOptions) / sizeof(*acceptOptions)))
 			return (true);
 		else if (matchesAny(input, declineOptions, sizeof(declineOptions) / sizeof(*declineOptions)))
 			return (false);
 
-		std::cerr << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input! " << RESET
+		std::cout << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input! " << RESET
 			<< "Try something like: " << GREEN << acceptOptions[std::rand() % (sizeof(acceptOptions) / sizeof(*acceptOptions))] << RESET
 			<< " or " << RED << declineOptions[std::rand() % (sizeof(declineOptions) / sizeof(*declineOptions))] << RESET << '.' << std::endl;
-		sleep(COOLDOWN);
-		erasePreviousLines(1);
 	};
 }
 

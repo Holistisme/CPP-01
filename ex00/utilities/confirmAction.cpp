@@ -51,7 +51,7 @@ bool	confirmAction(void) {
 		else if (matchesAny(input, declineOptions, sizeof(declineOptions) / sizeof(*declineOptions)))
 			return (false);
 
-		std::cerr << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input! " << RESET
+		std::cout << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input! " << RESET
 			<< "Try something like: " << GREEN << acceptOptions[std::rand() % (sizeof(acceptOptions) / sizeof(*acceptOptions))] << RESET
 			<< " or " << RED << declineOptions[std::rand() % (sizeof(declineOptions) / sizeof(*declineOptions))] << RESET << '.' << std::endl;
 		sleep(COOLDOWN);

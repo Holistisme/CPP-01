@@ -66,3 +66,7 @@
 #define ERASE_LINE					"\33[2K\r"
 #define ERASE_PREVIOUS_LINE			"\33[2K\33[1A\33[2K"
 #define MOVE_CURSOR_UP				"\033[F"
+
+/********************************************************************************/
+
+#define ERROR						BG_RED "ERROR:" RESET RED " "

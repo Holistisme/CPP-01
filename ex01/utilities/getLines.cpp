@@ -1,8 +1,8 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*               File Name: /CPP-01/ex01/utilities/manageLines.cpp                *
+*                 File Name: /CPP-01/ex01/utilities/getLines.cpp                 *
 *                    Creation Date: January 11, 2025 05:39 PM                    *
-*                    Last Updated: January 11, 2025 05:45 PM                     *
+*                    Last Updated: January 15, 2025 05:33 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -26,32 +26,13 @@ std::string	getInputLine(void) {
 
 	if (std::cin.eof()) {
 		std::cout << RED << "\nShutdown: " << RESET << EXIT_MESSAGE << std::endl;
-		deleteZombiesMemory();
+		deleteHordes(NULL);
 		exit(EXIT_SUCCESS);
 	}
 	else if (std::cin.fail()) {
-		std::cerr << RED << "ERROR: " << RESET
+		std::cout << RED << "ERROR: " << RESET
 			<< "An error occurred while reading input." << std::endl;
-		sleep(COOLDOWN), erasePreviousLines(1), std::cin.clear(), input = "";
+		std::cin.clear(), input = "";
 	}
-	else
-		erasePreviousLines(1);
 	return (input);
-}
-
-/**
- * @brief Erase the previous `count` lines from the terminal.
- * 
- * This function uses the ANSI escape sequence defined in `ERASE_PREVIOUS_LINE` 
- * to clear the specified number of lines from the terminal output.
- * 
- * @param count The number of lines to erase.
- */
-void	erasePreviousLines(const size_t &count) {
-	std::string	eraseInstructions = "";
-
-	for (size_t index = 0 ; index < count ; index++)
-		eraseInstructions += ERASE_PREVIOUS_LINE;
-
-	std::cout << eraseInstructions << std::flush << MOVE_CURSOR_UP << std::endl;
 }

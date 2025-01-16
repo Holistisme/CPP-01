@@ -1,8 +1,8 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-01/ex00/Zombie.hpp                       *
-*                    Creation Date: January 10, 2025 12:37 AM                    *
-*                    Last Updated: January 11, 2025 05:34 PM                     *
+*                    Creation Date: January 13, 2025 01:41 PM                    *
+*                    Last Updated: January 15, 2025 05:31 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -31,10 +31,30 @@ typedef int	index;
 
 #define MAX_ZOMBIES		42
 
-#define INTERACTION		2.5
+#define INTERACTION		3
 #define COOLDOWN		3
 
 #define EXIT_MESSAGE	"🧟 Thank you for testing " GREEN "BraiiiiiiinnnzzzZ" RESET "! 🧟\n"
+
+#define SIGNAL			'\033'
+
+/********************************************************************************/
+
+class	Zombie {
+	private:
+		std::string	name;
+		std::string	color;
+		void		announce(void); 
+	public:
+		Zombie(const std::string &name, const bool &allocated);
+		~Zombie(void);
+
+		std::string	getColoredName(void);
+		void		setZombieColor(void);
+};
+
+extern Zombie	*savedList[MAX_ZOMBIES];
+extern size_t	zombiesCount;
 
 /********************************************************************************/
 
@@ -48,24 +68,7 @@ void		trimSpaces(std::string &string, const bool &isZombieName);
 
 void		handleSigInt(int signal);
 
+Zombie*		newZombie(std::string name);
+void		randomChump(std::string name);
+
 void		deleteZombiesMemory(void);
-
-/********************************************************************************/
-
-class	Zombie {
-	private:
-		std::string	name;
-		std::string	color;
-		bool		canDie;
-		void		announce(void); 
-	public:
-		std::string	getColoredName(void);
-		Zombie() : name(""), color(""), canDie(false) {}
-		~Zombie();
-		Zombie*	newZombie(std::string name);
-		void	setZombieColor();
-		void	randomChump(std::string name);
-};
-
-extern Zombie	*savedList[MAX_ZOMBIES];
-extern size_t	zombiesCount;

@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                      File Name: /CPP-01/ex00/output.hpp                        *
 *                    Creation Date: January 10, 2025 04:19 PM                    *
-*                    Last Updated: January 11, 2025 10:41 AM                     *
+*                    Last Updated: January 15, 2025 05:36 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -66,3 +66,7 @@
 #define ERASE_LINE					"\33[2K\r"
 #define ERASE_PREVIOUS_LINE			"\33[2K\33[1A\33[2K"
 #define MOVE_CURSOR_UP				"\033[F"
+
+/********************************************************************************/
+
+#define ERROR						BG_RED "ERROR:" RESET RED " "

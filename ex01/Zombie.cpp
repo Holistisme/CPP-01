@@ -1,17 +1,37 @@
+/*********************************************************************************
+*                              Author: Alexy Heitz                               *
+*                       File Name: /CPP-01/ex01/Zombie.cpp                       *
+*                    Creation Date: January 13, 2025 01:41 PM                    *
+*                    Last Updated: January 16, 2025 10:46 AM                     *
+*                              Source Language: cpp                              *
+*                                                                                *
+*                            --- Code Description ---                            *
+*                        The source of all deadly action                         *
+*********************************************************************************/
+
 #include "./Zombie.hpp"
 
 /********************************************************************************/
+
+/**
+ * @brief Construct a new Zombie object.
+ * 
+ * @param firstName the name to give to the zombie.
+ * @param allocated if the zombie is allocated, allows you to track its memory.
+ */
+Zombie::Zombie(const std::string &firstName) {
+	name = firstName;
+	announce();
+}
 
 /**
  * @brief Destroy the Zombie object.
  * 
  */
 Zombie::~Zombie() {
-	if (canDie) {
-		static const std::string	gasps[] = {"Huhhhh...", "Urrrrgh...", "Whaaaat?!", "Braaaaahh..."};
-		std::cout << getColoredName() << RESET << ": " << gasps[rand() % 4] << std::endl;
-		sleep(INTERACTION / 2), erasePreviousLines(1);
-	}
+	static const std::string	gasps[] = {"Huhhhh...", "Urrrrgh...", "Whaaaat?!", "Braaaaahh..."};
+
+	std::cout << getName() << RESET << ": " << gasps[rand() % 4] << std::endl;
 }
 
 /********************************************************************************/
@@ -21,67 +41,57 @@ Zombie::~Zombie() {
  * 
  * @return std::string The sum of the colorful name.
  */
-std::string	Zombie::getColoredName(void) {
-	return ((!color.empty() ? color : BRIGHT_GREEN)
-		+ (!name.empty() ? name : "An unknown zombie"));
+std::string	Zombie::getName(void) {
+	return (BRIGHT_GREEN + (!name.empty() ? name : "An unknown zombie"));
 }
 
 /********************************************************************************/
+
+/**
+ * @brief Create a new zombie allocated dynamically.
+ * 
+ * @param name The name to give to the zombie.
+ * @return Zombie* A pointer to the newly created zombie.
+ */
+Zombie*	newZombie(std::string name) {
+	return new Zombie(name);
+}
 
 /**
  * @brief The zombie interactively announces itself.
  * 
  */
 void	Zombie::announce(void) {
-	std::cout << getColoredName() << RESET << ": BraiiiiiiinnnzzzZ..." << std::endl;
-	sleep(INTERACTION), erasePreviousLines(1);
+	std::cout << getName() << RESET << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
 /**
- * @brief Asks the user if they want to assign a color to the zombie.
+ * @brief Allows the zombie to introduce himself and say a random phrase.
  * 
+ * @param i the zombie's index within the horde.
  */
-void	Zombie::setZombieColor() {
-	static const std::string	availableColors[]	= { "black", "red", "green", "yellow", "blue", "magenta", "cyan", "white" };
-	static const std::string	colorCodes[]		= { BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE };
+void	Zombie::saySomething(const index &i) {
+	static const std::string	something[] = {"Hungry... so hungry...", "Must... feed...",
+		"More brains...", "Food...", "Where... is... everyone?", "So... tired...", "Why... am I... so slow?",
+		"Do zombies pay taxes?", "I miss my coffee... and my brains.", "Do I look pale to you?",
+		"Being undead is exhausting!", "I'm not biting... yet!", "I think I lost a limb... again.",
+		"Brains... gluten-free ones, please!", "Why does everyone run away from me?", "I remember... being alive...",
+		"Why... can't I just rest?", "Do you think zombies can dream?", "I feel so... empty.", "What... was my name?",
+		"If a zombie eats a brain in the forest, does it make a sound?", "What... is life... really?", "Do zombies have a soul?",
+		"Is being undead... a second chance?", "Why are brains so... delicious?",
+		"I’m right behind you...", "You can’t run forever!", "You’ll be one of us soon...", "Brains... yours look... tasty.",
+		"I can... smell your fear.", "Join us... it's not so bad.", "We are the future of evolution.", "What... am I doing here?"
+		"This place looks... familiar.", "Braiiiiiiinnnzzz?", "No, thanks. I just ate."};
 
-	std::cout << "🖌 - You can give a color to " << getColoredName() << RESET
-		<< "! Specify one if you want, or leave the field empty!" << std::endl;
-
-	while (forever) {
-		std::string	input;
-		trimSpaces(input = getInputLine(), false);
-
-		for (index i = 0 ; i < 8 ; i++) {
-			if (equivalentString(input, availableColors[i])) {
-				color = colorCodes[i];
-				erasePreviousLines(1);
-				return;
-			}
-		}
-
-		if (input.empty()) {
-			color = "";
-			erasePreviousLines(1);
-			return;
-		}
-		else {
-			index	randomI = rand() % 8;
-
-			std::cerr << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input" << RESET
-				<< "! Try something like: " << colorCodes[randomI] << availableColors[randomI] << RESET << '!' << std::endl;
-			sleep(COOLDOWN), erasePreviousLines(1);
-		}
-	}
-}
+	std::cout << "I am the number " << BLUE << i << RESET
+		<< " of the horde, my name is " << getName() << RESET
+		<< " and I just want to say " << something[rand() % 35] << std::endl;
+}    
 
 /**
- * @brief Deletes all registered zombie allocations.
- * 
+ * @brief Allows you to follow the zombie linked list.
+ *  
  */
-void	deleteZombiesMemory() {
-	for (size_t index = 0 ; index < zombiesCount ; index++) {
-		delete savedList[index];
-		savedList[index] = NULL;
-	}
-}
+
+void	Zombie::addFollower(Zombie *follower)	{ nextZombie = follower; }
+Zombie	*Zombie::getFollower(void)				{ return nextZombie; }

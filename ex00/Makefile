@@ -2,7 +2,7 @@
 #                              Author: Alexy Heitz                               #
 #                        File Name: CPP-01/ex00/Makefile                         #
 #                   Creation Date: January 10, 2025 12:36 AM                     #
-#                    Last Updated: January 11, 2025 10:42 AM                     #
+#                    Last Updated: January 15, 2025 03:03 AM                     #
 #                           Source Language: makefile                            #
 #                                                                                #
 #                            --- Code Description ---                            #
@@ -11,8 +11,8 @@
 
 NAME		= "BraiiiiiiinnnzzzZ"
 
-CC			= c++
-CFLAGS		= -Wall -Wextra -Werror -std=c++98
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 UTILITIES	= ./utilities
 
@@ -31,10 +31,10 @@ OBJECTS		= $(SOURCE:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+	@$(CXX) $(CFLAGS) $(OBJECTS) -o $(NAME)
 
 %.o: %.cpp
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJECTS)

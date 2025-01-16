@@ -1,18 +1,28 @@
-NAME		= "BraiiiiiiinnnzzzZ"
+##################################################################################
+#                              Author: Alexy Heitz                               #
+#                        File Name: CPP-01/ex01/Makefile                         #
+#                   Creation Date: January 13, 2025 01:41 PM                     #
+#                    Last Updated: January 15, 2025 05:35 PM                     #
+#                           Source Language: makefile                            #
+#                                                                                #
+#                            --- Code Description ---                            #
+#               Instructions for compiling, cleaning, and more!                  #
+##################################################################################
 
-CC			= c++
-CFLAGS		= -Wall -Wextra -Werror -std=c++98
+NAME		= "Moar brainz!"
+
+CXX			= c++
+CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 
 UTILITIES	= ./utilities
 
 SOURCE		= main.cpp							\
 			handleSigInt.cpp					\
-			newZombie.cpp						\
-			randomChump.cpp						\
 			Zombie.cpp							\
+			zombieHorde.cpp						\
 			$(UTILITIES)/confirmAction.cpp		\
 			$(UTILITIES)/equivalentString.cpp	\
-			$(UTILITIES)/manageLines.cpp		\
+			$(UTILITIES)/getLines.cpp			\
 			$(UTILITIES)/trimSpaces.cpp
 
 OBJECTS		= $(SOURCE:.cpp=.o)
@@ -20,10 +30,10 @@ OBJECTS		= $(SOURCE:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(NAME)
 
 %.o: %.cpp
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJECTS)

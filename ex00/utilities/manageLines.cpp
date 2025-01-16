@@ -30,7 +30,7 @@ std::string	getInputLine(void) {
 		exit(EXIT_SUCCESS);
 	}
 	else if (std::cin.fail()) {
-		std::cerr << RED << "ERROR: " << RESET
+		std::cout << RED << "ERROR: " << RESET
 			<< "An error occurred while reading input." << std::endl;
 		sleep(COOLDOWN), erasePreviousLines(1), std::cin.clear(), input = "";
 	}

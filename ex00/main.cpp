@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                        File Name: /CPP-01/ex00/main.cpp                        *
 *                    Creation Date: January 10, 2025 12:36 AM                    *
-*                    Last Updated: January 11, 2025 05:07 PM                     *
+*                    Last Updated: January 15, 2025 05:30 PM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -43,21 +43,21 @@ int	main(void) {
 		}
 	}
 	catch (const std::bad_alloc& e) {
-		std::cerr << BG_RED << "ERROR:" << RESET
+		std::cout << BG_RED << "ERROR:" << RESET
 			" Memory allocation failed: "
 			<< RED << e.what() << RESET << std::endl;
 		deleteZombiesMemory();
 		exit(EXIT_FAILURE);
 	}
 	catch (const std::exception& e) {
-		std::cerr << BG_RED << "ERROR:" << RESET
+		std::cout << BG_RED << "ERROR:" << RESET
 			" Unhandled exception: "
 			<< RED << e.what() << RESET << std::endl;
 		deleteZombiesMemory();
 		exit(EXIT_FAILURE);
 	}
 	catch (...) {
-		std::cerr << BG_RED << "ERROR:" << RESET
+		std::cout << BG_RED << "ERROR:" << RESET
 			" Unknown exception occurred." << std::endl;
 		deleteZombiesMemory();
 		exit(EXIT_FAILURE);
@@ -88,7 +88,12 @@ static inline void	makeChoice(std::string &input) {
 	if (equivalentString(input, "NEW")) {
 		std::cout << "🕱 - A name for your new" << GREEN << " allocated " << RESET << "zombie?" << std::endl;
 		trimSpaces(zombieName = getInputLine(), true);
-		currentZombie = Zombie().newZombie(zombieName);
+		if (zombieName.find(SIGNAL) != std::string::npos) {
+			std::cout << ERROR << "Zombies refuse to carry signals!" << RESET << std::endl;
+			sleep(COOLDOWN), erasePreviousLines(2);
+			return;
+		}
+		currentZombie = newZombie(zombieName);
 		std::cout << "Well done " << currentZombie->getColoredName() << RESET
 			<< ", you have been able to get out of your allocation function!" << std::endl;
 		sleep(INTERACTION), erasePreviousLines(1);
@@ -96,7 +101,12 @@ static inline void	makeChoice(std::string &input) {
 	else if (equivalentString(input, "CHUMP")) {
 		std::cout << "🕱 - A name for your new" << YELLOW << " unallocated " << RESET << "zombie?" << std::endl;
 		trimSpaces(zombieName = getInputLine(), true);
-		Zombie().randomChump(zombieName);
+		if (zombieName.find(SIGNAL) != std::string::npos) {
+			std::cout << ERROR << "Zombies refuse to carry signals!" << RESET << std::endl;
+			sleep(COOLDOWN), erasePreviousLines(2);
+			return;
+		}
+		randomChump(zombieName);
 	}
 	if (equivalentString(input, "EXIT") or zombiesCount == MAX_ZOMBIES) {
 		erasePreviousLines(2);
