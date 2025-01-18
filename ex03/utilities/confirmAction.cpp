@@ -1,15 +1,15 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*              File Name: /CPP-01/ex01/utilities/confirmAction.cpp               *
-*                    Creation Date: January 11, 2025 05:39 PM                    *
-*                    Last Updated: January 15, 2025 05:34 PM                     *
+*               File Name: /CPP-01/ex03/utilities/confirmAction.cpp              *
+*                    Creation Date: January 10, 2025 04:02 PM                    *
+*                    Last Updated: January 18, 2025 02:58 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
 *                        To be sure of the user's wishes                         *
 *********************************************************************************/
 
-#include "./../Zombie.hpp"
+#include "./../main.hpp"
 
 /********************************************************************************/
 
@@ -26,12 +26,12 @@ static inline bool	matchesAny(const std::string &input, const std::string option
 bool	confirmAction(void) {
 	const std::string	acceptOptions[] = { "y", "yes", "agree",
 		"sure", "why note", "absolutely", "of course", "go for it",
-		"do it", "Go away!" , "ok", "yeah", "yup", "aye", "confirmed",
-		"let's go", "Do it up!", "+1", "true", "enable", "sure thing",
+		"do it", "Accept away!" , "ok", "yeah", "yup", "aye", "confirmed",
+		"let's go", "do it up!", "+1", "true", "enable", "sure thing",
 		"heck yeah!", "go ahead", "yessir", "fine", "alright", "let's do this",
 		"To infinity and beyond!", "Make it so!", "Engage!", "Do it like it's hot!",
 		"Chop chop!", "Houston, we are go for this!",
-		"Yes, my liege!", "Activate the protocol!", "Ready to roll!"
+		"Yes, my liege!", "Activate protocol!", "Ready to roll!"
 	};
 	const std::string	declineOptions[] = { "n", "no", "disagree",
 		"nah", "nope", "not really", "never", "don't", "stop", "leave it",
@@ -46,13 +46,16 @@ bool	confirmAction(void) {
 		trimSpaces(input, false);
 
 		if (matchesAny(input, acceptOptions, sizeof(acceptOptions) / sizeof(*acceptOptions)))
-			return (true);
+			return erasePreviousLines(1), true;
 		else if (matchesAny(input, declineOptions, sizeof(declineOptions) / sizeof(*declineOptions)))
-			return (false);
-
-		std::cout << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input! " << RESET
-			<< "Try something like: " << GREEN << acceptOptions[std::rand() % (sizeof(acceptOptions) / sizeof(*acceptOptions))] << RESET
-			<< " or " << RED << declineOptions[std::rand() % (sizeof(declineOptions) / sizeof(*declineOptions))] << RESET << '.' << std::endl;
+			return erasePreviousLines(1), false;
+		else {
+			std::cout << '"' << YELLOW << input << RESET <<  '"' << RED << " is not a valid input! " << RESET
+				<< "Try something like: " << GREEN << acceptOptions[std::rand() % (sizeof(acceptOptions) / sizeof(*acceptOptions))] << RESET
+				<< " or " << RED << declineOptions[std::rand() % (sizeof(declineOptions) / sizeof(*declineOptions))] << RESET << '.' << std::endl;
+			sleep(COOLDOWN);
+			erasePreviousLines(1);
+		}
 	};
 }
 

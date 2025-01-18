@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                        File Name: /CPP-01/ex00/main.cpp                        *
 *                    Creation Date: January 10, 2025 12:36 AM                    *
-*                    Last Updated: January 15, 2025 10:23 AM                     *
+*                    Last Updated: January 15, 2025 11:42 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -54,7 +54,7 @@ int	main(void) {
 				everybodySaysSomething(programMemory->leaders[programMemory->count++]);
 			}
 
-			std::cout << BG_BRIGHT_YELLOW << "\n⛐  - It's time to choose if you want to escape the hordes!" << RESET << std::endl;
+			std::cout << '\n' << BG_BRIGHT_YELLOW << "⛐  - It's time to choose if you want to escape the hordes!" << RESET << std::endl;
 			if (confirmAction() or programMemory->count == MAX_HORDES) {
 				if (programMemory->count == MAX_HORDES)
 					std::cout << ERASE_PREVIOUS_LINE << "It's not up to you, there are too many hordes, get out!" << std::endl;

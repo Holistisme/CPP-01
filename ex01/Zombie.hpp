@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-01/ex01/Zombie.hpp                       *
 *                    Creation Date: January 10, 2025 12:37 AM                    *
-*                    Last Updated: January 16, 2025 10:28 AM                     *
+*                    Last Updated: January 16, 2025 11:42 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -17,6 +17,7 @@
 
 #include <csignal>
 #include <cstdlib>
+#include <iomanip>
 #include <iostream>
 #include <unistd.h>
 #include <sstream>

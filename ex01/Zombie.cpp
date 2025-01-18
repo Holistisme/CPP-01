@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-01/ex01/Zombie.cpp                       *
 *                    Creation Date: January 13, 2025 01:41 PM                    *
-*                    Last Updated: January 16, 2025 10:46 AM                     *
+*                    Last Updated: January 16, 2025 11:42 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -83,9 +83,9 @@ void	Zombie::saySomething(const index &i) {
 		"I can... smell your fear.", "Join us... it's not so bad.", "We are the future of evolution.", "What... am I doing here?"
 		"This place looks... familiar.", "Braiiiiiiinnnzzz?", "No, thanks. I just ate."};
 
-	std::cout << "I am the number " << BLUE << i << RESET
+	std::cout << "I am the number " << BLUE << std::setw(2) << std::setfill('0') << i << RESET
 		<< " of the horde, my name is " << getName() << RESET
-		<< " and I just want to say " << something[rand() % 35] << std::endl;
+		<< " and I just want to say: " << something[rand() % 35] << std::endl;
 }    
 
 /**
