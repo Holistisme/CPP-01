@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-01/ex01/Zombie.cpp                       *
 *                    Creation Date: January 13, 2025 01:41 PM                    *
-*                    Last Updated: January 16, 2025 11:42 AM                     *
+*                    Last Updated: January 21, 2025 08:13 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -19,7 +19,7 @@
  * @param firstName the name to give to the zombie.
  * @param allocated if the zombie is allocated, allows you to track its memory.
  */
-Zombie::Zombie(const std::string &firstName) {
+void	Zombie::setName(const std::string &firstName) {
 	name = firstName;
 	announce();
 }
@@ -46,16 +46,6 @@ std::string	Zombie::getName(void) {
 }
 
 /********************************************************************************/
-
-/**
- * @brief Create a new zombie allocated dynamically.
- * 
- * @param name The name to give to the zombie.
- * @return Zombie* A pointer to the newly created zombie.
- */
-Zombie*	newZombie(std::string name) {
-	return new Zombie(name);
-}
 
 /**
  * @brief The zombie interactively announces itself.
@@ -86,12 +76,4 @@ void	Zombie::saySomething(const index &i) {
 	std::cout << "I am the number " << BLUE << std::setw(2) << std::setfill('0') << i << RESET
 		<< " of the horde, my name is " << getName() << RESET
 		<< " and I just want to say: " << something[rand() % 35] << std::endl;
-}    
-
-/**
- * @brief Allows you to follow the zombie linked list.
- *  
- */
-
-void	Zombie::addFollower(Zombie *follower)	{ nextZombie = follower; }
-Zombie	*Zombie::getFollower(void)				{ return nextZombie; }
+}

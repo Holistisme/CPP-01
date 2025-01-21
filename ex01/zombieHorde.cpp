@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                    File Name: /CPP-01/ex01/zombieHorde.cpp                     *
 *                    Creation Date: January 13, 2025 02:38 PM                    *
-*                    Last Updated: January 15, 2025 10:22 AM                     *
+*                    Last Updated: January 21, 2025 08:13 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -21,21 +21,11 @@
  * @return Zombie* the first zombie of the horde
  */
 Zombie* zombieHorde(int N, std::string name) {
-	Zombie	*firstZombie = NULL;
-	Zombie	*currentZombie = NULL;
-	
-	for (int index = 0 ; index < N ; index++) {
-		if (!index) {
-			firstZombie = newZombie(name);
-			currentZombie = firstZombie;
-		}
-		else {
-			currentZombie->addFollower(newZombie(name));
-			currentZombie = currentZombie->getFollower();
-		}
-		currentZombie->addFollower(NULL);
-	}
-	return (firstZombie);
+	Zombie *horde = new Zombie[N];
+	deleteHordes(&horde); // In order to be able to delete it from anywhere in the event of a problem.
+	for (int n = 0 ; n < N ; n++)
+		horde[n].setName(name);
+	return (horde);
 }
 
 /**
@@ -43,19 +33,13 @@ Zombie* zombieHorde(int N, std::string name) {
  * 
  * @param context if specified, backup, otherwise, forces deletion.
  */
-void	deleteHordes(zombieMemory *context) {
-	static zombieMemory	*zombieMemory = NULL;
+void	deleteHordes(Zombie **context) {
+	static Zombie	*zombieMemory = NULL;
 
 	if (zombieMemory) {
-		for (size_t index = 0 ; zombieMemory->leaders[index] and index < MAX_HORDES ; index++) {
-			Zombie	*currentZombie = zombieMemory->leaders[index];
-			while (currentZombie) {
-				Zombie	*nextZombie = currentZombie->getFollower();
-				delete currentZombie;
-				currentZombie = nextZombie;
-			}
-		}
-		delete zombieMemory;
+		delete[] zombieMemory;
+		zombieMemory = NULL;
 	}
-	zombieMemory = context;
+	else if (context)
+		zombieMemory = *context;
 }

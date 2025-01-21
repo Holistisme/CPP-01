@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                       File Name: /CPP-01/ex01/Zombie.hpp                       *
 *                    Creation Date: January 10, 2025 12:37 AM                    *
-*                    Last Updated: January 16, 2025 11:42 AM                     *
+*                    Last Updated: January 21, 2025 08:13 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -45,22 +45,14 @@ typedef int	index;
 class	Zombie {
 	private:
 		std::string	name;
-		Zombie		*nextZombie;
 		void		announce(void); 
 	public:
-		Zombie(const std::string &firstName);
 		~Zombie();
 
+		void		setName(const std::string &firstName);
 		std::string	getName(void);
-		void		addFollower(Zombie *follower);
-		Zombie		*getFollower(void);
 		void		saySomething(const index &i);
 };
-
-typedef struct	zombieMemory {
-	Zombie		*leaders[MAX_HORDES];
-	size_t		count;
-}				zombieMemory;
 
 /********************************************************************************/
 
@@ -73,6 +65,5 @@ void		trimSpaces(std::string &string, const bool &isZombieName);
 
 void		handleSigInt(int signal);
 
-Zombie*		newZombie(std::string name);
 Zombie* 	zombieHorde(int N, std::string name);
-void		deleteHordes(zombieMemory *context);
+void		deleteHordes(Zombie **context);

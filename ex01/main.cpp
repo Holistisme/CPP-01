@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                        File Name: /CPP-01/ex00/main.cpp                        *
 *                    Creation Date: January 10, 2025 12:36 AM                    *
-*                    Last Updated: January 15, 2025 11:42 AM                     *
+*                    Last Updated: January 21, 2025 08:13 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -15,7 +15,7 @@
 
 static inline int			setHordeSize();
 static inline std::string	setHordeName();
-static inline void			everybodySaysSomething(Zombie *leader);
+static inline void			everybodySaysSomething(Zombie *horde, const size_t &zombieCount);
 
 /********************************************************************************/
 
@@ -26,17 +26,12 @@ static inline void			everybodySaysSomething(Zombie *leader);
  */
 int	main(void) {
 	try {
-		zombieMemory	*programMemory = new zombieMemory;
-		programMemory->count = 0;
-		for (index i = 0 ; i < MAX_HORDES ; i++)
-			programMemory->leaders[i] = NULL;
-		deleteHordes(programMemory); // In order to save the structure from everywhere.
-
 		handleSigInt(!SIGINT);
 		std::srand(0);
 
 		std::cout << std::endl <<"🧟 " << GREEN <<  "Moar brainz!" << RESET << " 🧟\n" << std::endl;
 		while (forever) {
+			Zombie	*horde = NULL;
 			std::string	newName = setHordeName();
 			if (newName.find(SIGNAL) != std::string::npos) {
 				std::cout << ERROR << "Zombies refuse to carry signals!\n" << RESET << std::endl;
@@ -50,16 +45,14 @@ int	main(void) {
 			std::cout << std::endl;
 
 			if (hordeMembers) {
-				programMemory->leaders[programMemory->count] = zombieHorde(hordeMembers, newName);
-				everybodySaysSomething(programMemory->leaders[programMemory->count++]);
+				horde = zombieHorde(hordeMembers, newName);
+				everybodySaysSomething(horde, hordeMembers);
 			}
 
-			std::cout << '\n' << BG_BRIGHT_YELLOW << "⛐  - It's time to choose if you want to escape the hordes!" << RESET << std::endl;
-			if (confirmAction() or programMemory->count == MAX_HORDES) {
-				if (programMemory->count == MAX_HORDES)
-					std::cout << ERASE_PREVIOUS_LINE << "It's not up to you, there are too many hordes, get out!" << std::endl;
-				std::cout << std::endl;
-				deleteHordes(NULL);
+			std::cout << std::endl;
+			deleteHordes(NULL);
+			std::cout << '\n' << BG_BRIGHT_YELLOW << "⛐  - It's time to choose if you want to recreate a horde!" << RESET << std::endl;
+			if (!confirmAction()) {
 				std::cout << '\n' << EXIT_MESSAGE << std::endl;
 				exit(EXIT_SUCCESS);
 			}
@@ -94,15 +87,10 @@ int	main(void) {
  * 
  * @param leader the first zombie of the horde.
  */
-static inline void	everybodySaysSomething(Zombie *leader) {
-	Zombie	*current = leader;
-	index	number = 1;
-
+static inline void	everybodySaysSomething(Zombie *horde, const size_t &zombieCount) {
 	std::cout << std::endl;
-	while (current) {
-		current->saySomething(number++);
-		current = current->getFollower();
-	}
+	for (size_t index = 0 ; index < zombieCount ; index++)
+		horde[index].saySomething(index + 1);
 }
 
 /**
