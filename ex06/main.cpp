@@ -1,8 +1,8 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*                        File Name: /CPP-01/ex05/main.cpp                        *
+*                        File Name: /CPP-01/ex06/main.cpp                        *
 *                    Creation Date: January 21, 2025 08:19 AM                    *
-*                    Last Updated: January 21, 2025 09:58 AM                     *
+*                    Last Updated: January 21, 2025 10:39 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -22,7 +22,7 @@ int main(void) {
 	try {
 		Harl	Harl;
 
-		std::cout << "\n🗣  " << BG_BRIGHT_YELLOW <<  "Harl 2.0" << RESET << " arrived at the restaurant! He's going to complain again!" << " 🗣\n" << std::endl;
+		std::cout << "\n🗣  " << BG_BRIGHT_YELLOW <<  "Harl 2.0" << RESET << " arrived at the restaurant! And he's going to complain A LOT!" << " 🗣\n" << std::endl;
 		std::srand(std::time(0));
 		while (forever) {
 			std::cout << "I   - " << GREEN	<< "DEBUG" << RESET << std::endl;
