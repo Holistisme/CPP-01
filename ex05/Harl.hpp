@@ -1,12 +1,12 @@
 /*********************************************************************************
 *                              Author: Alexy Heitz                               *
-*                        File Name: /CPP-01/ex03/main.hpp                        *
-*                    Creation Date: January 16, 2025 11:47 AM                    *
-*                    Last Updated: January 18, 2025 05:50 PM                     *
+*                        File Name: /CPP-01/ex05/Harl.hpp                        *
+*                    Creation Date: January 21, 2025 08:20 AM                    *
+*                    Last Updated: January 21, 2025 09:24 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
-*               All the essential information to assault an enemy                *
+*                              All of Harl's hatred                              *
 *********************************************************************************/
 
 #pragma once
@@ -19,27 +19,39 @@
 
 #include <ctime>
 #include <iostream>
-#include <unistd.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 /********************************************************************************/
 
-typedef int	index;
+#define forever			 1
 
-/********************************************************************************/
-
-#define forever			true
-
-#define INTERACTION		2
+#define INTERACTION		3
 #define COOLDOWN		3
 
-#define EXIT_MESSAGE	"⚔ Thanks for using " BG_BRIGHT_RED "Unnecessary violence" RESET " ! ⚔"
 #define SIGNAL			'\033'
+#define EXIT_MESSAGE	"🗣  Thanks for getting all the employees fired by complaining " BG_YELLOW "Harl 2.0" RESET "! 🗣"
 
 /********************************************************************************/
 
-bool		confirmAction(void);
+typedef int		index;
+
+class	Harl {
+	private:
+		void	debug(void);
+		void	info(void);
+		void	warning(void);
+		void	error(void);
+
+	public:
+		void	complain(std::string level);
+};
+
+typedef void	(Harl::*HarlMethod)();
+
+/********************************************************************************/
+
 bool		equivalentString(const std::string &first, const std::string &second);
 std::string	getInputLine(void);
 void		erasePreviousLines(const size_t &count);
-void		trimSpaces(std::string &string, const bool &isTrimable);
+void		trimSpaces(std::string &string);
