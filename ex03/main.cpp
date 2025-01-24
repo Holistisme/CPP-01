@@ -2,7 +2,7 @@
 *                              Author: Alexy Heitz                               *
 *                        File Name: /CPP-01/ex03/main.cpp                        *
 *                    Creation Date: January 16, 2025 11:47 AM                    *
-*                    Last Updated: January 18, 2025 05:37 PM                     *
+*                    Last Updated: January 24, 2025 11:11 AM                     *
 *                              Source Language: cpp                              *
 *                                                                                *
 *                            --- Code Description ---                            *
@@ -98,6 +98,17 @@ static inline void	play(void) {
 
 	std::cout << "🔥 End of the Fight! 🔥" << std::endl;
 	sleep(INTERACTION), erasePreviousLines(1);
+	if ((equivalentString(blueHuman.getName(), "RICK") or equivalentString(blueHuman.getName(), "ASTLEY"))
+		and (equivalentString(redHuman.getName(), "RICK") or equivalentString(redHuman.getName(), "ASTLEY"))
+		and !equivalentString(blueHuman.getName(), redHuman.getName())) {
+		#ifdef __linux__
+			system("xdg-open https://www.youtube.com/watch?v=dQw4w9WgXcQ > /dev/null 2>&1");
+		#elif _WIN32
+			system("start https://www.youtube.com/watch?v=dQw4w9WgXcQ > nul 2>&1");
+		#elif __APPLE__
+			system("open https://www.youtube.com/watch?v=dQw4w9WgXcQ > /dev/null 2>&1");
+		#endif
+	}
 	if (blueHuman.getDamage() > redHuman.getDamage())
 		std::cout << "🔵 Blue Victory! 🔵" << std::endl;
 	else if (blueHuman.getDamage() == redHuman.getDamage())
